@@ -1,3 +1,16 @@
+Requirements
+
+1. Install MacPorts
+2. Install following libraries
+ * autoconf 2.56 or later
+ * automake 1.7 or later
+ * libtool 1.4 or later
+ * NASM 2.07 or later
+3. Check svn works.
+4. Modify ScriptRunner for using MacPorts 
+5. Modify ScriptVariables for using NASM
+
+
 *****
 12-06-2014 ARM64 Support (unofficially)
 *****
