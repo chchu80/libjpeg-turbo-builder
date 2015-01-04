@@ -41,7 +41,7 @@ CCASFLAGS_I386=""
 LDFLAGS_I386="-m32 ${FLAGS_I386}"
 FINALFLAGS_I386="--with-simd" # --with-simd
 CC_I386='/usr/bin/clang'
-OPTIONS_I386='--host i686-apple-darwin --enable-static --disable-shared NASM=/usr/local/bin/nasm'
+OPTIONS_I386='--host i686-apple-darwin --enable-static --disable-shared NASM=/opt/local/bin/nasm'
 
 # Simulator 64bit
 # assuming that NATIVE_ARCH_32_BIT is x86_64, this is what you would use for the simulator
@@ -51,4 +51,4 @@ CCASFLAGS_X86_64=""
 LDFLAGS_X86_64="${FLAGS_X86_64}"
 FINALFLAGS_X86_64="--with-simd" # --with-simd
 CC_X86_64='/usr/bin/clang'
-OPTIONS_X86_64='--disable-silent-rules --host x86_64-apple-darwin --enable-static --disable-shared NASM=/usr/local/bin/nasm'
+OPTIONS_X86_64='--disable-silent-rules --host x86_64-apple-darwin --enable-static --disable-shared NASM=/opt/local/bin/nasm'

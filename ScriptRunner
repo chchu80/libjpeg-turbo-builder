@@ -7,8 +7,10 @@
 
 # KSH is the one shell language I know really well.
 
+export MAC_PORTS='/opt/local/bin:/opt/local/sbin'
+
 PWD=$(pwd)
-export PATH="${PWD}:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+export PATH="${PWD}:$MAC_PORTS:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 #echo $PATH
 
 #if you want to see every command execute, remove the # below as "set -x" causes a lot of helpful output
@@ -40,52 +42,17 @@ fi
 
 # Now lets get the source
 
-VERSION=""
-if [ -f ./libjpeg-turbo/VERSION ]
-then
-	VERSION=$(cat ./libjpeg-turbo/VERSION)
-fi
-
-FETCH=""
-if [[ ${TURBO_VERSION} == "trunk" && ( ${VERSION} == "" || ${VERSION} == "trunk" ) ]]
-then
-    # user wants latest svn code
-    if [ -d ./libjpeg-turbo ]
-    then
-        cd ./libjpeg-turbo
-        svn update
-        cd ..
-    else
-        FETCH="trunk"
-		TURBO_VERSION="trunk"
-		# If you want to test a branch you can do it like this
-        #FETCH="//libjpeg-turbo.svn.sourceforge.net/svnroot/libjpeg-turbo/branches/1.2.x" # HACK REMOVE
-		#TURBO_VERSION="branches/1.2.x"
-    fi
-else
-    # user selected a numbered release
-    if [[ ! -d ./libjpeg-turbo || ${TURBO_VERSION} != ${VERSION} ]]
-    then
-        FETCH="tags/${TURBO_VERSION}"
-    else
-		echo "Using version $(cat ./libjpeg-turbo/VERSION)"
-    fi
-fi
+FETCH="trunk"
 
 echo FETCH IS ${FETCH}
+svn co svn://svn.code.sf.net/p/libjpeg-turbo/code/${FETCH} libjpeg-turbo    
 
-if [[ ${FETCH} != "" ]]
-then 
-    svn co svn://svn.code.sf.net/p/libjpeg-turbo/code/${FETCH} libjpeg-turbo
-    echo ${TURBO_VERSION} > ./libjpeg-turbo/VERSION
-    
-    # just do this once
-    cd libjpeg-turbo
-	date >> ../Log.configure
-	echo 'autoreconf -fiv' >> ../Log.configure
-    autoreconf -fiv >> ../Log.configure
-    cd ..
-fi
+# just do this once
+cd libjpeg-turbo
+date >> ../Log.configure
+echo 'autoreconf -fiv' >> ../Log.configure
+autoreconf -fiv >> ../Log.configure
+cd ..
 
 ARCHIVES=""
 
